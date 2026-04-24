@@ -13,6 +13,28 @@ import streamlit as st
 from dotenv import find_dotenv, load_dotenv
 from langchain_core.messages import AIMessage, HumanMessage
 
+
+def _load_secrets_into_env() -> None:
+    """把 Streamlit Cloud 上的 Secrets 注入到环境变量。
+
+    - 本地：没有 secrets.toml 时静默跳过，继续走 .env
+    - 云端：secrets 中的值会先写入 os.environ，之后的 load_dotenv
+      若本地没有 .env 不会覆盖它们；本地有 .env 时 .env 优先。
+    """
+    try:
+        secrets = st.secrets
+    except Exception:  # FileNotFoundError / StreamlitSecretNotFoundError
+        return
+    for key in ("LLM_API_KEY", "LLM_BASE_URL", "LLM_MODEL", "OPENAI_API_KEY"):
+        try:
+            if key in secrets:
+                os.environ[key] = str(secrets[key])
+        except Exception:
+            continue
+
+
+_load_secrets_into_env()
+
 ENV_PATH = find_dotenv(usecwd=True)
 load_dotenv(ENV_PATH, override=True)
 
