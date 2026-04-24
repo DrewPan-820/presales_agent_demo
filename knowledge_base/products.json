@@ -1,0 +1,151 @@
+{
+  "currency": "CNY",
+  "price_unit": "万元",
+  "categories": [
+    {
+      "category": "edge_inference_box",
+      "category_cn": "边缘推理盒",
+      "series": "EdgeBox",
+      "description": "部署在工厂现场的边缘推理设备，直接对接摄像头进行实时视频分析，延迟低、带宽占用小。",
+      "models": [
+        {
+          "model": "EdgeBox-S",
+          "max_channels": 4,
+          "compute_power": "4 TOPS",
+          "power_watt": 15,
+          "form_factor": "迷你主机（壁挂式）",
+          "use_case": "小型工位场景，1-4 路视频接入",
+          "unit_price": 1.8
+        },
+        {
+          "model": "EdgeBox-M",
+          "max_channels": 8,
+          "compute_power": "16 TOPS",
+          "power_watt": 60,
+          "form_factor": "1U 机架式",
+          "use_case": "中型产线，5-8 路视频接入",
+          "unit_price": 3.8
+        },
+        {
+          "model": "EdgeBox-L",
+          "max_channels": 16,
+          "compute_power": "40 TOPS",
+          "power_watt": 150,
+          "form_factor": "2U 机架式",
+          "use_case": "大型车间，9-16 路视频接入",
+          "unit_price": 7.2
+        }
+      ]
+    },
+    {
+      "category": "training_machine",
+      "category_cn": "训练机",
+      "series": "TrainBox",
+      "description": "现场模型迭代与定制化训练设备，支持私有化部署、避免数据外传。",
+      "models": [
+        {
+          "model": "TrainBox-Pro",
+          "gpu": "RTX 4090 × 2",
+          "vram": "48 GB",
+          "use_case": "现场模型迭代、小批量训练",
+          "unit_price": 8.0
+        },
+        {
+          "model": "TrainBox-Ultra",
+          "gpu": "A100 × 2",
+          "vram": "160 GB",
+          "use_case": "大规模多场景训练，支持视频大模型微调",
+          "unit_price": 28.0
+        }
+      ]
+    },
+    {
+      "category": "edge_manager",
+      "category_cn": "推理盒管理终端",
+      "series": "EdgeManager",
+      "description": "集中管理多台推理盒，提供统一监控、固件升级、模型下发、告警聚合等功能。建议 ≥3 台推理盒时配备。",
+      "models": [
+        {
+          "model": "EdgeManager-20",
+          "max_managed_nodes": 20,
+          "features": ["统一监控", "固件升级", "告警聚合"],
+          "use_case": "中小型部署（≤20 台推理盒）",
+          "unit_price": 2.5
+        },
+        {
+          "model": "EdgeManager-100",
+          "max_managed_nodes": 100,
+          "features": ["统一监控", "固件升级", "告警聚合", "多租户/权限管理", "审计日志"],
+          "use_case": "大型部署或多厂区集中运维",
+          "unit_price": 6.0
+        }
+      ]
+    },
+    {
+      "category": "center_server",
+      "category_cn": "中心服务器（推训一体）",
+      "series": "CenterServer",
+      "description": "推理与训练一体的中心服务器，适合大规模集中部署或对训练有持续需求的场景。",
+      "models": [
+        {
+          "model": "CenterServer-32",
+          "max_inference_channels": 32,
+          "gpu": "A30 × 4",
+          "use_case": "中大型工厂集中部署，16-32 路集中推理",
+          "unit_price": 18.0
+        },
+        {
+          "model": "CenterServer-64",
+          "max_inference_channels": 64,
+          "gpu": "A100 × 4",
+          "use_case": "大型工厂或多厂区统一管理，32-64 路集中推理 + 持续训练",
+          "unit_price": 42.0
+        }
+      ]
+    },
+    {
+      "category": "service",
+      "category_cn": "实施与服务",
+      "series": "Service",
+      "description": "项目落地必备的部署、调试、培训等专业服务。",
+      "models": [
+        {
+          "model": "标准实施服务",
+          "use_case": "现场部署、调试、人员培训（≤20 路）",
+          "unit_price": 2.0
+        },
+        {
+          "model": "大型项目实施服务",
+          "use_case": "现场部署、调试、培训、试运行支持（>20 路）",
+          "unit_price": 5.0
+        },
+        {
+          "model": "算法定制服务（按场景）",
+          "use_case": "针对客户特定 SOP 场景的模型定制与调优",
+          "unit_price": 6.0
+        },
+        {
+          "model": "年度运维服务",
+          "use_case": "远程运维、模型持续优化、7x12 技术支持",
+          "unit_price": 3.0
+        }
+      ]
+    }
+  ],
+  "pricing_rules": {
+    "channel_to_hardware": [
+      {"range": "1-4 路", "recommendation": "EdgeBox-S × N（N = ceil(点位 / 4)）"},
+      {"range": "5-8 路", "recommendation": "EdgeBox-M × N（N = ceil(点位 / 8)）"},
+      {"range": "9-16 路", "recommendation": "EdgeBox-L × N，或 EdgeBox-M 多台组合"},
+      {"range": "16-32 路", "recommendation": "CenterServer-32，或 EdgeBox-L 多台 + EdgeManager-20"},
+      {"range": "32+ 路", "recommendation": "CenterServer-64，或 CenterServer-32 多台 + EdgeManager-100"}
+    ],
+    "extras": [
+      "推理盒数量 ≥3 台时，建议配 EdgeManager-20（≤20 台）或 EdgeManager-100（>20 台）",
+      "若客户明确需要现场模型迭代/数据不出厂，建议增配 TrainBox 系列，或直接选 CenterServer 推训一体方案",
+      "实施服务费按项目规模计入：≤20 路用标准实施服务，>20 路用大型项目实施服务",
+      "客户场景特殊（非通用 SOP）需算法定制服务，按场景计费",
+      "建议客户首年附加年度运维服务"
+    ]
+  }
+}

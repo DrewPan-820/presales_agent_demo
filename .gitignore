@@ -1,0 +1,38 @@
+# 敏感配置（含 API key），绝不提交
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# 虚拟环境
+.venv/
+venv/
+env/
+ENV/
+
+# IDE / 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Streamlit 缓存
+.streamlit/secrets.toml
+
+# 临时文件
+*.log
+*.tmp
+/tmp/
